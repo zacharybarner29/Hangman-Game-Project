@@ -1,0 +1,148 @@
+#Functions
+def hint(word, hidden_words):
+  return word[:2:] + hidden_words[2::] #List slicing
+
+def win_or_lose(word, guesses_left, W):
+  score = (guesses_left/6) * 100//1 #Final score (percentage)
+  if W == True:
+    print(f'\nCongratulations! You guessed the correct word with {guesses_left} guesses left and scored {score}%')
+  else:
+    print(f'\nYou ran out of guesses. the correct word was "{''.join(word)}". Play again!')
+
+def letter_checker(word, letter_guess, correct_letters):
+  for i in range(len(word)):
+    if letter_guess == word[i]: #checks each value in the list if it is the letter guessed
+      correct_letters[i] = letter_guess
+  return correct_letters #returns a list
+
+#--------------------
+
+import random
+# Chatbot
+#Game mode
+while True: #Error handling with loops and if statements
+  while True: #try/except error handling
+    try:
+      language = int(input('Hello! Welcome to the snowman game. Enter "1" if you would like the unknown word to be in English, "2" to be in French, and "3" to be in Spanish. \n'))
+      break
+    except ValueError:
+      print('Please enter only 1, 2, or 3.')
+
+  if language == 1:
+    while True: #Error handling with loops and if statements
+      while True: #try/except error handling
+        try:
+          difficulty = int(input('\nEnter "1" for easy difficulty and "2" for hard difficulty.\n'))
+          break
+        except ValueError:
+          print('Please enter only 1 or 2')
+      if difficulty == 1:
+        easy_word_bank = ["apple", "house", "dog", "cat", "tree", "book", "fish", "ball", "car", "milk", "sun", "moon", "star", "cake", "bird", "shoe", "chair", "water", "pizza", "phone", "school", "horse", "bread", "cloud", "beach"] #I used AI to generate this list
+        correct_word = list(easy_word_bank[random.randint(0, len(easy_word_bank) - 1)]) #Chooses a random value within the list using import random and random.randint
+        break
+      elif difficulty == 2:
+        hard_word_bank = ["adventure", "butterfly", "calendar", "champion", "chocolate", "dinosaur", "discovery", "elephant", "giraffe", "happiness", "imagination", "journey", "knowledge", "mysterious", "nightmare", "penguin", "pineapple", "rainbow", "restaurant", "squirrel", "thunderstorm", "treasure", "umbrella", "volcano"] #I used AI to generate this list
+        correct_word = list(hard_word_bank[random.randint(0, len(hard_word_bank) - 1)]) #Also turns the string from the list into a list
+        break
+      else:
+        print('Please enter only 1 or 2.')
+    break
+
+  elif language == 2:
+    while True: #Error handling with loops and if statements
+      while True: #try/except error handling
+        try:
+          difficulty = int(input('\nEnter "1" for easy difficulty and "2" for hard difficulty.\n'))
+          break
+        except ValueError:
+          print('Please enter only 1 or 2')
+      if difficulty == 1:
+        easy_word_bank = ["pomme", "maison", "chien", "chat", "arbre", "livre", "poisson", "balle", "voiture", "lait", "soleil", "lune", "etoile", "gateau", "oiseau", "chaussure", "chaise", "eau", "pizza", "telephone", "ecole", "cheval", "pain", "nuage", "plage"] #I used AI to generate this list
+        correct_word = list(easy_word_bank[random.randint(0, len(easy_word_bank) - 1)])
+        break
+      elif difficulty == 2:
+        hard_word_bank = ["aventure", "papillon", "calendrier", "champion", "chocolat", "dinosaure", "decouverte", "elephant", "girafe", "bonheur", "imagination", "voyage", "connaissance", "mysterieux", "cauchemar", "pingouin", "ananas", "restaurant", "ecureuil", "orage", "tresor", "parapluie"] #I used AI to generate this list
+        correct_word = list(hard_word_bank[random.randint(0, len(hard_word_bank) - 1)])
+        break
+      else:
+        print('Please enter only 1 or 2.')
+    break
+
+  elif language == 3:
+      while True: #Error handling with loops and if statements
+        while True: #try/except error handling
+          try:
+            difficulty = int(input('\nEnter "1" for easy difficulty and "2" for hard difficulty.\n'))
+            break
+          except ValueError:
+            print('Please enter only 1 or 2')
+        if difficulty == 1:
+          easy_word_bank = ["manzana", "casa", "perro", "gato", "arbol", "libro", "pez", "pelota", "coche", "leche", "sol", "luna", "estrella", "pastel", "pajaro", "zapato", "silla", "agua", "pizza", "telefono", "escuela", "caballo", "pan", "nube", "playa"] #I used AI to generate this list
+          correct_word = list(easy_word_bank[random.randint(0, len(easy_word_bank) - 1)])
+          break
+        elif difficulty == 2:
+          hard_word_bank = ["aventura", "mariposa", "calendario", "campeon", "chocolate", "dinosaurio", "descubrimiento", "elefante", "jirafa", "felicidad", "imaginacion", "viaje", "conocimiento", "misterioso", "pesadilla", "pinguino", "pina", "arcoiris", "restaurante", "ardilla", "tormenta", "tesoro", "paraguas", "volcan"] #I used AI to generate this list
+          correct_word = list(hard_word_bank[random.randint(0, len(hard_word_bank) - 1)])
+          break
+        else:
+          print('Please enter only 1 or 2.')
+      break
+
+  else:
+    print('Please enter only 1, 2, or 3.')
+
+guess_display = ['-'] * len(correct_word) #Makes a new variable where each letter of the correct word is turned into '-'
+print("\n",''.join(guess_display)) #Joins each value of the list into one string
+
+#--------------------
+
+#Guessing
+num_of_guesses = 6
+
+while num_of_guesses > 0: #Repeats until no guesses are left
+  print(f"\nYou have {num_of_guesses} guess{'es' if num_of_guesses != 1 else ''} to find the correct letters in the unknown word.") #I used AI for this: makes the word 'guess' plural if the number of guesses is more than one
+
+
+  while True:#Error handling using loops and if statements
+    while True: #try/except error handling
+      try:
+        lwh = int(input('Enter "1" if you would like to guess only a letter. Enter "2" if you would like to guess the entire word, but if you get the word wrong, you will lose. Enter "3" if you want a hint, but you can only get one (costs 3 guesses).\n'))
+        break
+      except ValueError:
+        print('Please enter only 1, 2, or 3.')
+    if lwh == 1:
+      letter = input('What letter would you like to guess? \n').lower() #I used AI for this: makes the guess lowercased to run through the function
+      guess_display = letter_checker(correct_word, letter, guess_display)
+      guess_subtract = 1
+      break
+
+    elif lwh == 2:
+      word_guess = input('What word would you like to guess? \n').lower() #I used AI for this: makes the guess lowercased to compare to correct_word and run through the function
+      if list(word_guess) == correct_word: #Turns string into a list to compare with another list
+        guess_display = list(word_guess)
+        guess_subtract = 1
+      else:
+        guess_subtract = 7
+      break
+
+    elif lwh == 3:
+      guess_display = hint(correct_word, guess_display)
+      guess_subtract = 3
+      break
+
+    else:
+      print('Please enter only 1, 2, or 3.')
+
+  print("\n",''.join(guess_display))
+  if guess_display == correct_word:
+    break
+
+  num_of_guesses -= guess_subtract
+
+#--------------------
+
+#Win/lose
+if guess_display == correct_word:
+  win_or_lose(correct_word, num_of_guesses, True) #Function #1
+else:
+  win_or_lose(correct_word, num_of_guesses, False) #Function #2
